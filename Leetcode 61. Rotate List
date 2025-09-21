@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        
+        vector<int>arr;
+
+        while(head != NULL){
+            arr.push_back(head -> val);
+            head = head -> next;
+        }
+
+        vector<int>temp(arr.size());
+        for(int i = 0 ; i < arr.size() ; i++){
+            temp[(i + k) % arr.size()] = arr[i];
+        }
+         arr = temp;
+
+        ListNode* dummy = new ListNode(-1);
+        ListNode* result = dummy;
+
+        for(auto i : arr){
+            result -> next = new ListNode(i);
+            result = result -> next;
+        }
+
+        return dummy -> next;
+    }
+};
